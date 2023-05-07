@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class StaggeredHomePage extends StatefulWidget {
+  const StaggeredHomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<StaggeredHomePage> createState() => _StaggeredHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _StaggeredHomePageState extends State<StaggeredHomePage> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {

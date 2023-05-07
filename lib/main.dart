@@ -17,7 +17,52 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const Entry(),
     );
   }
+}
+
+class Entry extends StatelessWidget {
+  const Entry({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Staggered Grid View
+          navigatorButton(
+            context,
+            "Staggered Grid View",
+            const StaggeredHomePage(),
+          ),
+
+          // 
+
+        ],
+      ),
+    );
+  }
+}
+
+Widget navigatorButton(BuildContext context, String text, Widget page) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: ElevatedButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => page,
+          ),
+        );
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.orangeAccent,
+      ),
+      child: Text(text),
+    ),
+  );
 }
