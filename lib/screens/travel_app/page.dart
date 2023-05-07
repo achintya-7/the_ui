@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:the_ui/screens/travel_app/models/beaches.dart';
 import 'package:the_ui/screens/travel_app/models/popular.dart';
 import 'package:the_ui/screens/travel_app/models/recommender.dart';
 
@@ -45,6 +47,9 @@ class TravelHomePage extends StatelessWidget {
 
             // List of Popular Categories
             popularCategories(),
+
+            // Images
+            imagesWidget(),
           ],
         ),
       ),
@@ -52,38 +57,64 @@ class TravelHomePage extends StatelessWidget {
   }
 }
 
+Widget imagesWidget() => Container(
+      margin: const EdgeInsets.only(top: 28, bottom: 16),
+      height: 125,
+      child: ListView.builder(
+        itemCount: beaches.length,
+        padding: const EdgeInsets.only(left: 28.8, right: 12),
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        itemBuilder: (context, index) {
+          return Container(
+            height: 130,
+            width: 180,
+            margin: const EdgeInsets.only(right: 16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(beaches[index].image),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+
 Widget popularCategories() => Container(
       margin: const EdgeInsets.only(top: 15),
       height: 45,
       child: ListView.builder(
-          itemCount: populars.length,
-          scrollDirection: Axis.horizontal,
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.only(left: 28.8, right: 9.6),
-          itemBuilder: (context, index) => Container(
-                margin: const EdgeInsets.only(right: 19.2),
-                height: 45.6,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(9.6),
-                  color: Color(populars[index].color),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      width: 19.2,
-                    ),
-                    Image.asset(
-                      populars[index].image,
-                      height: 16.8,
-                    ),
-                    const SizedBox(
-                      width: 19.2,
-                    )
-                  ],
-                ),
-              )),
+        itemCount: populars.length,
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.only(left: 28.8, right: 9.6),
+        itemBuilder: (context, index) => Container(
+          margin: const EdgeInsets.only(right: 19.2),
+          height: 45.6,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(9.6),
+            color: Color(populars[index].color),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(
+                width: 19.2,
+              ),
+              Image.asset(
+                populars[index].image,
+                height: 16.8,
+              ),
+              const SizedBox(
+                width: 19.2,
+              )
+            ],
+          ),
+        ),
+      ),
     );
 
 Widget popularText() => Padding(
