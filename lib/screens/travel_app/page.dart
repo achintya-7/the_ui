@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:the_ui/screens/travel_app/models/beaches.dart';
 import 'package:the_ui/screens/travel_app/models/popular.dart';
 import 'package:the_ui/screens/travel_app/models/recommender.dart';
+import 'package:the_ui/screens/travel_app/widgets/bottom_bar.dart';
 
 class TravelHomePage extends StatelessWidget {
   TravelHomePage({super.key});
@@ -26,6 +26,7 @@ class TravelHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const Drawer(),
+      bottomNavigationBar: const BottomNavigationBarTravel(),
       body: SafeArea(
         child: ListView(
           physics: const BouncingScrollPhysics(),
