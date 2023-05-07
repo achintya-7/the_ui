@@ -153,26 +153,28 @@ Widget title() => Padding(
       ),
     );
 
-Widget appDrawer(BuildContext context) => Container(
-      height: 60,
-      margin: const EdgeInsets.only(
-        top: 16,
-        left: 28,
-        right: 28,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            child: svgIcon('assets/travel/svg/icon_drawer.svg'),
-            onTap: () {
-              Scaffold.of(context).openDrawer();
-            },
-          ),
-          svgIcon('assets/travel/svg/icon_search.svg'),
-        ],
-      ),
-    );
+Widget appDrawer(BuildContext context) => Builder(builder: (context) {
+      return Container(
+        height: 60,
+        margin: const EdgeInsets.only(
+          top: 16,
+          left: 28,
+          right: 28,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              child: svgIcon('assets/travel/svg/icon_drawer.svg'),
+              onTap: () {
+                Scaffold.of(context).openDrawer();
+              },
+            ),
+            svgIcon('assets/travel/svg/icon_search.svg'),
+          ],
+        ),
+      );
+    });
 
 Widget svgIcon(String asset) => Container(
       height: 55,
