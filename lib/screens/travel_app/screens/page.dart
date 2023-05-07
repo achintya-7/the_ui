@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:the_ui/screens/travel_app/models/beaches.dart';
 import 'package:the_ui/screens/travel_app/models/popular.dart';
 import 'package:the_ui/screens/travel_app/models/recommender.dart';
+import 'package:the_ui/screens/travel_app/screens/place.dart';
 import 'package:the_ui/screens/travel_app/widgets/bottom_bar.dart';
 
 class TravelHomePage extends StatelessWidget {
@@ -235,12 +237,12 @@ FutureBuilder<List<Recommended>> pageView(
           );
         }
         final List<Recommended> recommended = snapshot.data;
-        return futureResponseWidget(pageController, recommended);
+        return futureResponseWidget(pageController, recommended, context);
       },
     );
 
-Widget futureResponseWidget(
-        PageController pageController, List<Recommended> recommended) =>
+Widget futureResponseWidget(PageController pageController,
+        List<Recommended> recommended, BuildContext context) =>
     Container(
       height: 220,
       margin: const EdgeInsets.only(top: 18),
@@ -252,57 +254,71 @@ Widget futureResponseWidget(
           recommended.length,
           (index) => imagePageView(
             recommended[index],
+            context,
           ),
         ),
       ),
     );
 
-Widget imagePageView(Recommended recommended) => Container(
-      margin: const EdgeInsets.only(right: 28),
-      width: 330,
-      height: 220,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        image: DecorationImage(
-          image: NetworkImage(recommended.image!),
-          fit: BoxFit.cover,
+Widget imagePageView(Recommended recommended, BuildContext context) =>
+    GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ImagePlace(
+              recommended: recommended,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.only(right: 28),
+        width: 330,
+        height: 220,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          image: DecorationImage(
+            image: CachedNetworkImageProvider(recommended.image!),
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-      child: Stack(
-        children: [
-          Positioned(
-            bottom: 20,
-            left: 20,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(
-                  sigmaX: 20,
-                  sigmaY: 20,
-                ),
-                child: Container(
-                  height: 36,
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.symmetric(horizontal: 14),
-                  color: Colors.black.withOpacity(0.1),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset('assets/travel/svg/icon_location.svg'),
-                      const SizedBox(width: 8),
-                      Text(
-                        recommended.name!,
-                        style: GoogleFonts.lato(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
+        child: Stack(
+          children: [
+            Positioned(
+              bottom: 20,
+              left: 20,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: 20,
+                    sigmaY: 20,
+                  ),
+                  child: Container(
+                    height: 36,
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(horizontal: 14),
+                    color: Colors.black.withOpacity(0.1),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset('assets/travel/svg/icon_location.svg'),
+                        const SizedBox(width: 8),
+                        Text(
+                          recommended.name!,
+                          style: GoogleFonts.lato(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );

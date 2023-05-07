@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_ui/screens/staggered/page.dart';
-import 'package:the_ui/screens/travel_app/page.dart';
+
+import 'screens/travel_app/screens/page.dart';
 
 void main() {
   runApp(const MyApp());
