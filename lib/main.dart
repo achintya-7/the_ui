@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_ui/screens/staggered/page.dart';
+import 'package:the_ui/screens/travel_app/page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,20 +29,26 @@ class Entry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Staggered Grid View
-          navigatorButton(
-            context,
-            "Staggered Grid View",
-            const StaggeredHomePage(),
-          ),
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Staggered Grid View
+            navigatorButton(
+              context,
+              "Staggered Grid View",
+              const StaggeredHomePage(),
+            ),
 
-          // 
-
-        ],
+            // Travel App
+            navigatorButton(
+              context,
+              'Travel App',
+              TravelHomePage(),
+            )
+          ],
+        ),
       ),
     );
   }
